@@ -1,4 +1,4 @@
-# Nutri Juankar
+# NutriK (Nutri Juankar)
 
 Haz una foto a un alimento o a su etiqueta y te dice lo saludable que es, según la hoja "detective de etiquetas" de la nutricionista.
 
