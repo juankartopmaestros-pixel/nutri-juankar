@@ -6,8 +6,8 @@
 <title>Nutri Juankar</title>
 <meta name="theme-color" content="#070a08">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="logo-64.png">
+<link rel="apple-touch-icon" href="nk-apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -224,6 +224,8 @@ body:not([data-view="home"]) .bg-home{display:none}
 .tab[aria-current="page"]{color:var(--brand)}
 .tab[aria-current="page"] svg{stroke:var(--brand);filter:drop-shadow(0 0 6px rgba(34,224,122,.5))}
 .textlink{color:var(--brand)}
+.brandlogo{padding:4px 14px 4px 4px!important;gap:9px!important}
+.brandlogo img{width:28px;height:28px;border-radius:8px;box-shadow:0 0 10px rgba(34,224,122,.45)}
 </style>
 </head>
 <body>
@@ -233,7 +235,7 @@ body:not([data-view="home"]) .bg-home{display:none}
   <!-- ============ INICIO ============ -->
   <section class="view" id="v-home">
     <div class="banner">
-      <div class="top"><span class="pill-brand">● Nutri Juankar</span><div class="avatar" aria-hidden="true">J</div></div>
+      <div class="top"><span class="pill-brand brandlogo"><img src="logo-64.png" alt="" width="28" height="28">Nutri Juankar</span><div class="avatar" aria-hidden="true">J</div></div>
       <div><div class="hello" id="hello">Hola 👋</div><h1>¿Qué vas a comer?</h1>
       <p class="lead">Escanea la etiqueta o el plato y te digo si encaja con tu plan.</p></div>
     </div>
