@@ -4,14 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Nutri Juankar</title>
-<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0c111d" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#070a08">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Nutri">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,35 +18,22 @@
 <style>
 /* Estilo A "limpio y clínico": tarjetas blancas sobre gris claro, nota en anillo, barras por nutriente y menú inferior. */
 :root{
-  --bg:#f6f7f9; --surface:#ffffff; --surface-2:#f2f4f7; --ink:#101828; --ink-2:#344054; --muted:#667085; --faint:#98a2b3; --line:#eaecf0;
-  --brand:#12b76a; --brand-strong:#067647; --brand-soft:#ecfdf3; --brand-soft-2:#d1fadf;
-  --dark:#101828; --dark-ink:#ffffff;
-  --ok:#12b76a; --ok-ink:#067647; --ok-soft:#ecfdf3;
-  --mid:#f79009; --mid-ink:#b54708; --mid-soft:#fffaeb;
-  --bad:#f04438; --bad-ink:#b42318; --bad-soft:#fef3f2;
-  --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px -8px rgba(16,24,40,.10);
-  --shadow-sm:0 1px 2px rgba(16,24,40,.06);
+  --bg:#070a08; --surface:#111613; --surface-2:#1a211d; --ink:#f3f5f2; --ink-2:#c9d1cb; --muted:#8e9a92; --faint:#6b766f; --line:#232b26;
+  --brand:#3ddc84; --brand-strong:#7ee8ab; --brand-soft:#0f2519; --brand-soft-2:#14331f;
+  --dark:#f3f5f2; --dark-ink:#070a08;
+  --ok:#3ddc84; --ok-ink:#7ee8ab; --ok-soft:#0f2519;
+  --mid:#fdb022; --mid-ink:#fec84b; --mid-soft:#2e2310;
+  --bad:#f97066; --bad-ink:#fda29b; --bad-soft:#341a18;
+  --shadow:0 1px 0 rgba(255,255,255,.03) inset,0 12px 30px -12px rgba(0,0,0,.7); --shadow-sm:none;
   --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --tabh:68px;
-  color-scheme:light;
+  /* Fotos (Unsplash, licencia libre). Si no cargan, queda el degradado verde oscuro. */
+  --img-hero:url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1000&q=70");
+  --img-result:url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=70");
+  --img-plan:url("https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1000&q=70");
+  --img-manual:url("https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=70");
+  color-scheme:dark;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0c111d; --surface:#161b26; --surface-2:#1f242f; --ink:#f5f5f6; --ink-2:#cecfd2; --muted:#94969c; --faint:#85888e; --line:#262b36;
-  --brand:#32d583; --brand-strong:#75e0a7; --brand-soft:#0f2a1d; --brand-soft-2:#123a27;
-  --dark:#f5f5f6; --dark-ink:#0c111d;
-  --ok:#32d583; --ok-ink:#75e0a7; --ok-soft:#0f2a1d;
-  --mid:#fdb022; --mid-ink:#fec84b; --mid-soft:#2e2310;
-  --bad:#f97066; --bad-ink:#fda29b; --bad-soft:#341a18;
-  --shadow:0 1px 2px rgba(0,0,0,.3); --shadow-sm:none; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0c111d; --surface:#161b26; --surface-2:#1f242f; --ink:#f5f5f6; --ink-2:#cecfd2; --muted:#94969c; --faint:#85888e; --line:#262b36;
-  --brand:#32d583; --brand-strong:#75e0a7; --brand-soft:#0f2a1d; --brand-soft-2:#123a27;
-  --dark:#f5f5f6; --dark-ink:#0c111d;
-  --ok:#32d583; --ok-ink:#75e0a7; --ok-soft:#0f2a1d;
-  --mid:#fdb022; --mid-ink:#fec84b; --mid-soft:#2e2310;
-  --bad:#f97066; --bad-ink:#fda29b; --bad-soft:#341a18;
-  --shadow:0 1px 2px rgba(0,0,0,.3); --shadow-sm:none; color-scheme:dark}
-
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
@@ -67,12 +53,26 @@ svg{flex:none}
 h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:0}
 .avatar{width:42px;height:42px;border-radius:50%;background:var(--brand-soft-2);color:var(--brand-strong);display:grid;place-items:center;font-weight:800;flex:none}
 .bar-head{display:flex;align-items:center;gap:12px}
-.bar-head b{font-size:18px}
+.bar-head b{font-size:18px;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.6)}
 .iconbtn{width:42px;height:42px;border-radius:12px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;box-shadow:var(--shadow-sm);flex:none}
+
+
+/* Cabeceras con foto */
+.banner{position:relative;margin:calc(-14px - env(safe-area-inset-top,0px)) calc(-1 * max(18px,env(safe-area-inset-right,0px))) 0;padding:calc(env(safe-area-inset-top,0px) + 18px) max(18px,env(safe-area-inset-right,0px)) 26px;min-height:320px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;
+  background:linear-gradient(180deg,rgba(7,10,8,.55) 0%,rgba(7,10,8,.25) 35%,rgba(7,10,8,.7) 75%,var(--bg) 100%),var(--img,none) center/cover no-repeat,radial-gradient(120% 90% at 80% 10%,#1d4a31 0%,#0d1f15 45%,var(--bg) 100%)}
+.banner.sm{min-height:230px;justify-content:flex-start}
+.banner .hello{color:rgba(255,255,255,.8)}
+.banner h1{font-size:32px;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.banner .lead{margin:6px 0 0;color:rgba(255,255,255,.82);font-size:15px;max-width:30ch;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.banner .iconbtn{background:rgba(7,10,8,.55);border-color:rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff}
+.banner .avatar{background:rgba(7,10,8,.5);color:var(--brand-strong);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(8px)}
+.lift{margin-top:-110px;position:relative;z-index:1}
+.pill-brand{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-strong);background:rgba(7,10,8,.55);border:1px solid rgba(61,220,132,.35);padding:5px 10px;border-radius:99px;backdrop-filter:blur(8px);align-self:flex-start}
+.scan{background:radial-gradient(circle at 50% 45%,rgba(61,220,132,.16),transparent 60%),repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 22px),#0c120e;border:1px solid var(--line)}
+.shutter{box-shadow:0 0 0 8px rgba(61,220,132,.12),0 12px 30px -6px rgba(61,220,132,.55)}
 
 /* Tarjetas */
 .card{background:var(--surface);border-radius:22px;padding:18px;box-shadow:var(--shadow);border:1px solid var(--line)}
-@media (prefers-color-scheme: light){.card{border-color:transparent}}
 .sec{display:flex;justify-content:space-between;align-items:baseline;margin:8px 2px -4px}
 .sec h2{font-size:17px;font-weight:700;margin:0}
 .textlink{background:none;border:0;padding:4px 0;color:var(--brand-strong);font-weight:700;font-size:14px}
@@ -103,7 +103,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:
 .btn-dark{background:var(--dark);color:var(--dark-ink)}
 .btn-soft{background:var(--surface-2);color:var(--ink)}
 .btn-brand{background:var(--brand);color:#fff;width:100%;margin-top:10px;font-size:16px}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn-brand{color:#0c111d}}
+.btn-brand{color:#04140a}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .status{font-size:14px;color:var(--muted);margin:10px 2px 0;min-height:0}
 .status:empty{display:none}
@@ -124,7 +124,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:
 .item small{color:var(--muted);font-size:13px}
 .sc{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff;flex:none}
 .sc.ok{background:var(--ok)} .sc.mid{background:var(--mid)} .sc.bad{background:var(--bad)} .sc.na{background:var(--surface-2);color:var(--muted)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sc:not(.na){color:#0c111d}}
+.sc:not(.na){color:#04140a}
 .empty{text-align:center;color:var(--muted);font-size:14px;padding:22px 10px}
 .empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:2px}
 
@@ -206,12 +206,13 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:
 
   <!-- ============ INICIO ============ -->
   <section class="view" id="v-home">
-    <div class="top">
-      <div><div class="hello" id="hello">Hola 👋</div><h1>¿Qué vas a comer?</h1></div>
-      <div class="avatar" aria-hidden="true">J</div>
+    <div class="banner" style="--img:var(--img-hero)">
+      <div class="top"><span class="pill-brand">● Nutri Juankar</span><div class="avatar" aria-hidden="true">J</div></div>
+      <div><div class="hello" id="hello">Hola 👋</div><h1>¿Qué vas a comer?</h1>
+      <p class="lead">Escanea la etiqueta o el plato y te digo si encaja con tu plan.</p></div>
     </div>
 
-    <div class="card hero">
+    <div class="card hero" style="margin-top:-14px">
       <div class="scan" id="drop">
         <i class="corner c1"></i><i class="corner c2"></i><i class="corner c3"></i><i class="corner c4"></i>
         <label class="shutter" id="shutter" aria-label="Hacer foto">
@@ -251,8 +252,8 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:
 
   <!-- ============ ESCRIBIR A MANO ============ -->
   <section class="view" id="v-manual" hidden>
-    <div class="bar-head"><button class="iconbtn" type="button" data-back aria-label="Volver"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>Escribir valores</b></div>
-    <form id="manual" class="card grid">
+    <div class="banner sm" style="--img:var(--img-manual)"><div class="bar-head"><button class="iconbtn" type="button" data-back aria-label="Volver"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>Escribir valores</b></div></div>
+    <form id="manual" class="card grid lift">
       <p class="small full">Copia los valores <b>por 100 g</b> de la etiqueta. Deja en blanco lo que no aparezca.</p>
       <label class="field full">Nombre del producto<input id="m-name" type="text" placeholder="p. ej. Yogur griego"></label>
       <label class="field">Calorías (kcal)<input id="m-kcal" type="number" step="any" inputmode="decimal"></label>
@@ -268,8 +269,8 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:
 
   <!-- ============ RESULTADO ============ -->
   <section class="view" id="v-result" hidden aria-live="polite">
-    <div class="bar-head"><button class="iconbtn" type="button" data-back aria-label="Volver"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>Resultado</b></div>
-    <div id="result" class="view" style="animation:none"></div>
+    <div class="banner sm" style="--img:var(--img-result)"><div class="bar-head"><button class="iconbtn" type="button" data-back aria-label="Volver"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>Resultado</b></div></div>
+    <div id="result" class="view lift" style="animation:none"></div>
   </section>
 
   <!-- ============ HISTORIAL ============ -->
@@ -281,7 +282,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:
 
   <!-- ============ MI PLAN ============ -->
   <section class="view" id="v-plan" hidden>
-    <div class="top"><h1>Mi plan</h1></div>
+    <div class="banner sm" style="--img:var(--img-plan);justify-content:flex-end;min-height:260px"><div><span class="pill-brand">Tu nutricionista</span><h1 style="margin-top:10px">Mi plan</h1><p class="lead">Las reglas con las que puntúo y cómo es tu semana.</p></div></div>
     <div class="card">
       <h2 style="font-size:17px;margin:0 0 4px">Cómo puntúo</h2>
       <p class="small" style="margin-bottom:8px">Tablas del "detective de etiquetas" de tu nutricionista, por 100 g.</p>
