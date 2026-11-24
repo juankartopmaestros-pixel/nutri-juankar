@@ -1,5 +1,5 @@
 // Guarda la app para que abra rápido. Las fotos siempre van al servidor (no se guardan aquí).
-const CACHE = "nutri-v5";
+const CACHE = "nutri-v6";
 const FILES = ["./", "index.html", "manifest.webmanifest", "nk-192.png", "nk-512.png", "logo-64.png", "bg-home.jpg", "bg-top.jpg"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener("activate", (e) => {
