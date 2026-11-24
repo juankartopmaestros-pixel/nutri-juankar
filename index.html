@@ -18,8 +18,8 @@
 <style>
 /* Estilo A "limpio y clínico": tarjetas blancas sobre gris claro, nota en anillo, barras por nutriente y menú inferior. */
 :root{
-  --bg:#070a08; --surface:#111613; --surface-2:#1a211d; --ink:#f3f5f2; --ink-2:#c9d1cb; --muted:#8e9a92; --faint:#6b766f; --line:#232b26;
-  --brand:#3ddc84; --brand-strong:#7ee8ab; --brand-soft:#0f2519; --brand-soft-2:#14331f;
+  --bg:#121514; --surface:rgba(20,26,23,.78); --surface-2:rgba(255,255,255,.07); --ink:#f3f5f2; --ink-2:#c9d1cb; --muted:#8e9a92; --faint:#6b766f; --line:rgba(255,255,255,.09);
+  --brand:#22e07a; --brand-strong:#7ee8ab; --brand-soft:#0f2519; --brand-soft-2:#14331f;
   --dark:#f3f5f2; --dark-ink:#070a08;
   --ok:#3ddc84; --ok-ink:#7ee8ab; --ok-soft:#0f2519;
   --mid:#fdb022; --mid-ink:#fec84b; --mid-soft:#2e2310;
@@ -27,11 +27,8 @@
   --shadow:0 1px 0 rgba(255,255,255,.03) inset,0 12px 30px -12px rgba(0,0,0,.7); --shadow-sm:none;
   --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --tabh:68px;
-  /* Fotos (Unsplash, licencia libre). Si no cargan, queda el degradado verde oscuro. */
-  --img-hero:url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1000&q=70");
-  --img-result:url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=70");
-  --img-plan:url("https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1000&q=70");
-  --img-manual:url("https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=70");
+  /* Fondo de comida real (de la imagen de referencia de Juankar). */
+  --img-top:url("bg-top.jpg");
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -199,14 +196,43 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:
 .tab{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:700;color:var(--faint);padding:6px 10px;min-width:64px}
 .tab[aria-current="page"]{color:var(--brand-strong)}
 .tab[aria-current="page"] svg{stroke:var(--brand)}
+
+/* ===== Diseño hiperrealista (como la imagen de referencia) ===== */
+body{background:radial-gradient(120% 60% at 50% 0%,#1a1f1d 0%,#121514 60%) fixed,#121514}
+.bg-home{position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(100vw,600px);aspect-ratio:937/1535;background:url("bg-home.jpg") top center/cover no-repeat;z-index:-1;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,#000 85%,transparent);mask-image:linear-gradient(180deg,#000 85%,transparent)}
+body:not([data-view="home"]) .bg-home{display:none}
+#v-home .banner{background:none;min-height:0;padding-bottom:6px;margin-bottom:0;justify-content:flex-start;gap:clamp(60px,19vw,100px)}
+#v-home .banner h1{font-size:clamp(30px,8.6vw,38px)}
+#v-home .hero{margin-top:10px!important}
+#v-home .scan{height:clamp(120px,34vw,150px)}
+.card{backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border:1px solid rgba(255,255,255,.08);border-radius:26px}
+.hero{background:rgba(18,24,21,.74);box-shadow:0 24px 50px -20px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05)}
+.scan{background:radial-gradient(ellipse 70% 90% at 50% 50%,rgba(34,224,122,.38),rgba(12,80,45,.55) 55%,rgba(8,38,24,.75) 100%)!important;border:1px solid rgba(34,224,122,.22)!important;border-radius:20px}
+.corner{border-color:var(--brand);border-width:3.5px;filter:drop-shadow(0 0 6px rgba(34,224,122,.6))}
+.shutter{background:radial-gradient(circle at 50% 35%,#3cf08f,#16c766);box-shadow:0 0 0 10px rgba(34,224,122,.14),0 0 0 11px rgba(34,224,122,.35),0 0 34px rgba(34,224,122,.55)}
+.shutter::after{display:none}
+.btn-dark{background:#ececec;color:#0d1210}
+.btn-soft{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#fff}
+.sec h2{font-size:20px;font-weight:800}
+.chip{background:rgba(18,24,21,.7);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:15px;padding:9px 16px 9px 10px}
+.chip span{font-size:20px;line-height:1}
+.pill-brand{font-size:14px;padding:7px 14px;border:1.5px solid var(--brand);color:var(--brand);background:rgba(10,14,12,.55)}
+.avatar{width:46px;height:46px;background:rgba(10,14,12,.75)!important;color:#fff!important;border:1px solid rgba(255,255,255,.12)}
+.tabs{background:rgba(14,17,16,.94);border-top:1px solid rgba(255,255,255,.08)}
+.tab{font-size:12px;color:#8d9691}
+.tab[aria-current="page"]{color:var(--brand)}
+.tab[aria-current="page"] svg{stroke:var(--brand);filter:drop-shadow(0 0 6px rgba(34,224,122,.5))}
+.textlink{color:var(--brand)}
 </style>
 </head>
 <body>
+<div class="bg-home" aria-hidden="true"></div>
 <div class="app">
 
   <!-- ============ INICIO ============ -->
   <section class="view" id="v-home">
-    <div class="banner" style="--img:var(--img-hero)">
+    <div class="banner">
       <div class="top"><span class="pill-brand">● Nutri Juankar</span><div class="avatar" aria-hidden="true">J</div></div>
       <div><div class="hello" id="hello">Hola 👋</div><h1>¿Qué vas a comer?</h1>
       <p class="lead">Escanea la etiqueta o el plato y te digo si encaja con tu plan.</p></div>
@@ -252,7 +278,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:
 
   <!-- ============ ESCRIBIR A MANO ============ -->
   <section class="view" id="v-manual" hidden>
-    <div class="banner sm" style="--img:var(--img-manual)"><div class="bar-head"><button class="iconbtn" type="button" data-back aria-label="Volver"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>Escribir valores</b></div></div>
+    <div class="banner sm" style="--img:var(--img-top)"><div class="bar-head"><button class="iconbtn" type="button" data-back aria-label="Volver"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>Escribir valores</b></div></div>
     <form id="manual" class="card grid lift">
       <p class="small full">Copia los valores <b>por 100 g</b> de la etiqueta. Deja en blanco lo que no aparezca.</p>
       <label class="field full">Nombre del producto<input id="m-name" type="text" placeholder="p. ej. Yogur griego"></label>
@@ -269,7 +295,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:
 
   <!-- ============ RESULTADO ============ -->
   <section class="view" id="v-result" hidden aria-live="polite">
-    <div class="banner sm" style="--img:var(--img-result)"><div class="bar-head"><button class="iconbtn" type="button" data-back aria-label="Volver"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>Resultado</b></div></div>
+    <div class="banner sm" style="--img:var(--img-top)"><div class="bar-head"><button class="iconbtn" type="button" data-back aria-label="Volver"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>Resultado</b></div></div>
     <div id="result" class="view lift" style="animation:none"></div>
   </section>
 
@@ -282,7 +308,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:
 
   <!-- ============ MI PLAN ============ -->
   <section class="view" id="v-plan" hidden>
-    <div class="banner sm" style="--img:var(--img-plan);justify-content:flex-end;min-height:260px"><div><span class="pill-brand">Tu nutricionista</span><h1 style="margin-top:10px">Mi plan</h1><p class="lead">Las reglas con las que puntúo y cómo es tu semana.</p></div></div>
+    <div class="banner sm" style="--img:var(--img-top);justify-content:flex-end;min-height:260px"><div><span class="pill-brand">Tu nutricionista</span><h1 style="margin-top:10px">Mi plan</h1><p class="lead">Las reglas con las que puntúo y cómo es tu semana.</p></div></div>
     <div class="card">
       <h2 style="font-size:17px;margin:0 0 4px">Cómo puntúo</h2>
       <p class="small" style="margin-bottom:8px">Tablas del "detective de etiquetas" de tu nutricionista, por 100 g.</p>
@@ -341,7 +367,7 @@ function show(name, {push = true} = {}){
   VIEWS.forEach(v => $("v-" + v).hidden = v !== name);
   const tab = ["manual","result"].includes(name) ? null : name;
   document.querySelectorAll(".tab").forEach(t => t.dataset.go === tab ? t.setAttribute("aria-current","page") : t.removeAttribute("aria-current"));
-  current = name;
+  current = name; document.body.dataset.view = name;
   if (name === "history") renderHistory();
   if (push) history.pushState({v:name}, "");
   window.scrollTo({top:0});
@@ -350,7 +376,7 @@ document.addEventListener("click", e => {
   const g = e.target.closest("[data-go]"); if (g) { show(g.dataset.go); return; }
   if (e.target.closest("[data-back]")) history.back();
 });
-history.replaceState({v:"home"}, "");
+history.replaceState({v:"home"}, ""); document.body.dataset.view = "home";
 addEventListener("popstate", e => show(e.state?.v || "home", {push:false}));
 
 // Saludo según la hora
