@@ -1,160 +1,387 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nutri Juankar</title><meta name="theme-color" content="#1f5a3f"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Nutri"><style>[hidden]{display:none!important}</style></head><body>
-<meta name="claude:viewport-fit-sides" content="cover">
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nutri Juankar</title>
+<meta name="theme-color" content="#070a08">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nutri">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 <style>
-/* Layout: una columna tipo app de móvil; la foto arriba y debajo una "etiqueta nutricional" con semáforo. */
+/* Estilo A "limpio y clínico": tarjetas blancas sobre gris claro, nota en anillo, barras por nutriente y menú inferior. */
 :root{
-  --bg:#f3f6f2; --surface:#ffffff; --ink:#15231c; --muted:#5b6b62; --line:#d5ded7;
-  --brand:#1f5a3f; --brand-ink:#ffffff; --brand-soft:#e2eee6;
-  --ok:#2e8b4e; --ok-soft:#dff1e4; --mid:#c98a12; --mid-soft:#fbefd4; --bad:#c8402f; --bad-soft:#f9e0dc;
-  --font-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --font-body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --bg:#121514; --surface:rgba(20,26,23,.78); --surface-2:rgba(255,255,255,.07); --ink:#f3f5f2; --ink-2:#c9d1cb; --muted:#8e9a92; --faint:#6b766f; --line:rgba(255,255,255,.09);
+  --brand:#22e07a; --brand-strong:#7ee8ab; --brand-soft:#0f2519; --brand-soft-2:#14331f;
+  --dark:#f3f5f2; --dark-ink:#070a08;
+  --ok:#3ddc84; --ok-ink:#7ee8ab; --ok-soft:#0f2519;
+  --mid:#fdb022; --mid-ink:#fec84b; --mid-soft:#2e2310;
+  --bad:#f97066; --bad-ink:#fda29b; --bad-soft:#341a18;
+  --shadow:0 1px 0 rgba(255,255,255,.03) inset,0 12px 30px -12px rgba(0,0,0,.7); --shadow-sm:none;
+  --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --tabh:68px;
+  /* Fondo de comida real (de la imagen de referencia de Juankar). */
+  --img-top:url("bg-top.jpg");
+  color-scheme:dark;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0f1713; --surface:#17221c; --ink:#e7efe9; --muted:#9db0a5; --line:#2b3a32;
-  --brand:#5fbf8a; --brand-ink:#0b1a12; --brand-soft:#1d3327;
-  --ok:#5cc47e; --ok-soft:#173523; --mid:#e5ad3c; --mid-soft:#3a2d12; --bad:#f07a68; --bad-soft:#3d1d18; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0f1713; --surface:#17221c; --ink:#e7efe9; --muted:#9db0a5; --line:#2b3a32;
-  --brand:#5fbf8a; --brand-ink:#0b1a12; --brand-soft:#1d3327;
-  --ok:#5cc47e; --ok-soft:#173523; --mid:#e5ad3c; --mid-soft:#3a2d12; --bad:#f07a68; --bad-soft:#3d1d18; color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.5}
-.wrap{max-width:560px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
-header h1{font-family:var(--font-display);font-weight:800;font-size:2rem;line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance}
-header h1 span{color:var(--brand)}
-header p{margin:6px 0 0;color:var(--muted)}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
-.drop{border:2px dashed var(--line);border-radius:12px;min-height:180px;display:grid;place-items:center;text-align:center;padding:12px;position:relative;overflow:hidden;background:var(--bg)}
-.drop.over{border-color:var(--brand)}
-.drop img{max-height:260px;border-radius:8px;object-fit:contain}
-.drop .hint{color:var(--muted);font-size:.9rem}
-.btns{display:flex;flex-wrap:wrap;gap:8px}
-button,.btn{font:600 .95rem var(--font-body);border-radius:10px;padding:11px 14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-button:focus-visible,.btn:focus-within,input:focus-visible,select:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+svg{flex:none}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:8px}
+
+.app{max-width:520px;margin:0 auto;min-height:100dvh;
+  padding:calc(env(safe-area-inset-top,0px) + 14px) max(18px,env(safe-area-inset-right,0px)) calc(var(--tabh) + env(safe-area-inset-bottom,0px) + 28px) max(18px,env(safe-area-inset-left,0px))}
+.view{display:flex;flex-direction:column;gap:16px}
+@media (prefers-reduced-motion:no-preference){.view{animation:in .28s ease-out}@keyframes in{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}}
+
+/* Cabeceras */
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:4px}
+.hello{font-size:14px;color:var(--muted);font-weight:500}
+h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:0}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--brand-soft-2);color:var(--brand-strong);display:grid;place-items:center;font-weight:800;flex:none}
+.bar-head{display:flex;align-items:center;gap:12px}
+.bar-head b{font-size:18px;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.iconbtn{width:42px;height:42px;border-radius:12px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;box-shadow:var(--shadow-sm);flex:none}
+
+
+/* Cabeceras con foto */
+.banner{position:relative;margin:calc(-14px - env(safe-area-inset-top,0px)) calc(-1 * max(18px,env(safe-area-inset-right,0px))) 0;padding:calc(env(safe-area-inset-top,0px) + 18px) max(18px,env(safe-area-inset-right,0px)) 26px;min-height:320px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;
+  background:linear-gradient(180deg,rgba(7,10,8,.55) 0%,rgba(7,10,8,.25) 35%,rgba(7,10,8,.7) 75%,var(--bg) 100%),var(--img,none) center/cover no-repeat,radial-gradient(120% 90% at 80% 10%,#1d4a31 0%,#0d1f15 45%,var(--bg) 100%)}
+.banner.sm{min-height:230px;justify-content:flex-start}
+.banner .hello{color:rgba(255,255,255,.8)}
+.banner h1{font-size:32px;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.banner .lead{margin:6px 0 0;color:rgba(255,255,255,.82);font-size:15px;max-width:30ch;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.banner .iconbtn{background:rgba(7,10,8,.55);border-color:rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff}
+.banner .avatar{background:rgba(7,10,8,.5);color:var(--brand-strong);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(8px)}
+.lift{margin-top:-110px;position:relative;z-index:1}
+.pill-brand{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-strong);background:rgba(7,10,8,.55);border:1px solid rgba(61,220,132,.35);padding:5px 10px;border-radius:99px;backdrop-filter:blur(8px);align-self:flex-start}
+.scan{background:radial-gradient(circle at 50% 45%,rgba(61,220,132,.16),transparent 60%),repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 22px),#0c120e;border:1px solid var(--line)}
+.shutter{box-shadow:0 0 0 8px rgba(61,220,132,.12),0 12px 30px -6px rgba(61,220,132,.55)}
+
+/* Tarjetas */
+.card{background:var(--surface);border-radius:22px;padding:18px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.sec{display:flex;justify-content:space-between;align-items:baseline;margin:8px 2px -4px}
+.sec h2{font-size:17px;font-weight:700;margin:0}
+.textlink{background:none;border:0;padding:4px 0;color:var(--brand-strong);font-weight:700;font-size:14px}
+
+/* Escáner */
+.scan{position:relative;height:200px;border-radius:18px;background:linear-gradient(135deg,var(--brand-soft),var(--brand-soft-2));display:grid;place-items:center;overflow:hidden}
+.scan.over{outline:3px dashed var(--brand);outline-offset:-6px}
+.corner{position:absolute;width:28px;height:28px;border:3px solid var(--brand);pointer-events:none;z-index:2}
+.c1{top:16px;left:16px;border-right:0;border-bottom:0;border-radius:9px 0 0 0}
+.c2{top:16px;right:16px;border-left:0;border-bottom:0;border-radius:0 9px 0 0}
+.c3{bottom:16px;left:16px;border-right:0;border-top:0;border-radius:0 0 0 9px}
+.c4{bottom:16px;right:16px;border-left:0;border-top:0;border-radius:0 0 9px 0}
+.shutter{width:74px;height:74px;border-radius:50%;background:var(--brand);display:grid;place-items:center;box-shadow:0 10px 24px -6px rgba(18,183,106,.6);border:0;position:relative}
+.shutter::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--brand);opacity:.35}
+.scan img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scan .clear{position:absolute;top:10px;right:10px;z-index:3;width:34px;height:34px;border-radius:50%;border:0;background:rgba(16,24,40,.6);color:#fff;display:grid;place-items:center}
+.busy{position:absolute;inset:0;z-index:4;background:rgba(16,24,40,.55);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-weight:600;text-align:center;padding:16px}
+.spin{width:38px;height:38px;border-radius:50%;border:4px solid rgba(255,255,255,.3);border-top-color:#fff;animation:sp 0.9s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.scanline{position:absolute;left:12%;right:12%;height:2px;background:var(--brand);box-shadow:0 0 12px var(--brand);top:20%;z-index:3;animation:sl 1.6s ease-in-out infinite alternate}
+@keyframes sl{to{top:80%}}
+.hero h2{font-size:18px;font-weight:700;margin:16px 0 2px}
+.hero p{margin:0;font-size:14px;color:var(--muted)}
+.btnrow{display:flex;gap:10px;margin-top:16px}
+.btn{position:relative;flex:1;min-height:52px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;border:0;padding:0 14px;text-decoration:none}
 .btn input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
-.primary{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);flex:1 1 100%;justify-content:center;font-size:1.05rem;padding:13px}
-button:disabled{opacity:.55;cursor:not-allowed}
-.status{font-size:.9rem;color:var(--muted);min-height:1.2em}
-.status.err,.small.err{color:var(--bad)}
-.link{background:none;border:none;padding:0;color:var(--brand);text-decoration:underline;font-weight:500}
+.btn:has(input:focus-visible){outline:3px solid var(--brand);outline-offset:2px}
+.btn-dark{background:var(--dark);color:var(--dark-ink)}
+.btn-soft{background:var(--surface-2);color:var(--ink)}
+.btn-brand{background:var(--brand);color:#fff;width:100%;margin-top:10px;font-size:16px}
+.btn-brand{color:#04140a}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.status{font-size:14px;color:var(--muted);margin:10px 2px 0;min-height:0}
+.status:empty{display:none}
+.status.err{color:var(--bad-ink);background:var(--bad-soft);padding:10px 12px;border-radius:12px}
+
+/* Ejemplos */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;margin:0 -2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-weight:600;font-size:14px;padding:9px 14px;border-radius:99px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);display:inline-flex;gap:6px;align-items:center}
+
+/* Listas (historial) */
+.list{padding:4px 16px}
+.item{display:flex;align-items:center;gap:12px;padding:12px 0;border:0;border-bottom:1px solid var(--line);background:none;width:100%;text-align:left}
+.item:last-child{border-bottom:0}
+.thumb{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:var(--surface-2);flex:none}
+.item .t{min-width:0;flex:1}
+.item b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item small{color:var(--muted);font-size:13px}
+.sc{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff;flex:none}
+.sc.ok{background:var(--ok)} .sc.mid{background:var(--mid)} .sc.bad{background:var(--bad)} .sc.na{background:var(--surface-2);color:var(--muted)}
+.sc:not(.na){color:#04140a}
+.empty{text-align:center;color:var(--muted);font-size:14px;padding:22px 10px}
+.empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:2px}
 
 /* Resultado */
-.verdict{display:flex;gap:14px;align-items:center}
-.dial{flex:0 0 auto;width:78px;height:78px;border-radius:50%;display:grid;place-items:center;font:600 1.6rem var(--font-mono);color:var(--surface)}
-.v-ok .dial{background:var(--ok)} .v-mid .dial{background:var(--mid)} .v-bad .dial{background:var(--bad)}
-.verdict h2{font-family:var(--font-display);font-weight:800;font-size:1.45rem;margin:0;line-height:1.1}
-.verdict .name{color:var(--muted);font-size:.92rem;margin-top:2px}
-.tag{display:inline-block;font:600 .7rem var(--font-body);letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
-.label{border:2px solid var(--ink);border-radius:6px;padding:10px 12px 6px}
-.label h3{font-family:var(--font-display);font-weight:800;font-size:1.15rem;margin:0 0 2px}
-.label .per{font:500 .78rem var(--font-mono);color:var(--muted);border-bottom:6px solid var(--ink);padding-bottom:6px}
-.row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
-.row:last-child{border-bottom:none}
-.row .n{font-weight:600}
-.row .n small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
-.row .val{font:600 .95rem var(--font-mono);font-variant-numeric:tabular-nums;text-align:right}
-.pill{font:600 .72rem var(--font-body);letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:99px;min-width:84px;text-align:center}
-.p-ok{background:var(--ok-soft);color:var(--ok)} .p-mid{background:var(--mid-soft);color:var(--mid)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-na{background:var(--bg);color:var(--muted)}
-.notes{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
-.notes li{padding:10px 12px;border-radius:10px;background:var(--bg);border-left:4px solid var(--line)}
-.notes li.ok{border-left-color:var(--ok)} .notes li.mid{border-left-color:var(--mid)} .notes li.bad{border-left-color:var(--bad)}
-.notes b{display:block;font-size:.85rem}
-h4{margin:0;font:600 .78rem var(--font-body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-.plan{background:var(--brand-soft);border-radius:12px;padding:12px 14px}
-.plan .when{font-family:var(--font-display);font-weight:800;font-size:1.1rem;color:var(--brand)}
-.small{font-size:.82rem;color:var(--muted)}
-details summary{cursor:pointer;font-weight:600}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.grid label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;color:var(--muted);min-width:0}
-.grid input,.grid select,textarea{font:500 1rem var(--font-mono);padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
-textarea{font-family:var(--font-body);font-size:.92rem;min-height:70px;resize:vertical}
+.prod{display:flex;gap:16px;align-items:center}
+.ring{position:relative;width:100px;height:100px;flex:none}
+.ring svg{transform:rotate(-90deg);display:block}
+.ring .track{stroke:var(--surface-2)}
+.ring .val{transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}
+.ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:28px;line-height:1;font-variant-numeric:tabular-nums}
+.ring .num small{font-size:11px;color:var(--faint);font-weight:600;margin-top:3px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;font-size:13px;font-weight:700}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.b-ok{background:var(--ok-soft);color:var(--ok-ink)} .b-mid{background:var(--mid-soft);color:var(--mid-ink)} .b-bad{background:var(--bad-soft);color:var(--bad-ink)} .b-na{background:var(--surface-2);color:var(--muted)}
+.prod h3{font-size:21px;font-weight:800;margin:6px 0 0;line-height:1.2;letter-spacing:-.01em;overflow-wrap:anywhere}
+.prod .meta{font-size:13px;color:var(--muted);margin-top:2px}
+.summary{margin:14px 0 0;font-size:15px;color:var(--ink-2)}
+.tagex{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--brand-strong);background:var(--brand-soft);padding:4px 10px;border-radius:99px;align-self:flex-start}
+.nut{padding:4px 18px}
+.nut-head{display:flex;justify-content:space-between;align-items:center;padding:12px 0 4px;font-size:13px;color:var(--muted);font-weight:600}
+.n{padding:12px 0;border-bottom:1px solid var(--line)}
+.n:last-child{border-bottom:0}
+.nl{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.nl .name{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.d-ok{background:var(--ok)} .d-mid{background:var(--mid)} .d-bad{background:var(--bad)} .d-na{background:var(--line)}
+.nl .v{font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;text-align:right}
+.nl .v small{display:block;font-size:12px;font-weight:600}
+.t-ok{color:var(--ok-ink)} .t-mid{color:var(--mid-ink)} .t-bad{color:var(--bad-ink)} .t-na{color:var(--faint)}
+.n .sub{font-size:12px;color:var(--muted);margin:-2px 0 0 17px}
+.track2{height:6px;border-radius:9px;background:var(--surface-2);margin-top:8px;overflow:hidden}
+.track2 i{display:block;height:100%;border-radius:9px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.notes{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.note{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px}
+.note .ic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;flex:none;font-size:16px}
+.note.ok .ic{background:var(--ok-soft);color:var(--ok-ink)} .note.mid .ic{background:var(--mid-soft);color:var(--mid-ink)} .note.bad .ic{background:var(--bad-soft);color:var(--bad-ink)}
+.note b{display:block;font-size:14px}
+.note span{font-size:14px;color:var(--ink-2);overflow-wrap:anywhere}
+.plan{background:var(--brand-soft);border-radius:22px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+.plan .pi{width:40px;height:40px;border-radius:12px;background:var(--surface);display:grid;place-items:center;font-size:20px;flex:none}
+.plan small{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--brand-strong)}
+.plan b{display:block;font-size:17px;margin:1px 0 2px}
+.plan p{margin:0;font-size:14px;color:var(--ink-2)}
+
+/* Formularios */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:var(--ink-2);min-width:0}
+.field input,.field textarea{font:500 16px var(--font);padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%;outline:none}
+.field input:focus,.field textarea:focus{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.field textarea{min-height:80px;resize:vertical;font-size:15px}
 .full{grid-column:1/-1}
-.demo{display:flex;flex-direction:column;gap:6px}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font:500 .85rem var(--font-body);padding:6px 11px;border-radius:99px;background:var(--brand-soft);color:var(--brand);border:1px solid transparent}
-.chip[aria-pressed="true"]{border-color:var(--brand)}
-.legend{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:4px 10px;font-size:.8rem;overflow-x:auto}
-.legend div{white-space:nowrap}
-.legend .h{font-weight:600;color:var(--muted)}
-@media (prefers-reduced-motion:no-preference){.result{animation:in .35s ease-out}@keyframes in{from{transform:translateY(6px);opacity:.4}to{transform:none;opacity:1}}}
+.small{font-size:13px;color:var(--muted);margin:0}
+.ok-text{color:var(--ok-ink);font-weight:600} .err-text{color:var(--bad-ink);font-weight:600}
+
+/* Reglas */
+.rules{width:100%;border-collapse:collapse;font-size:14px}
+.rules th{font-size:12px;color:var(--muted);font-weight:700;text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+.rules td{padding:10px 6px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.rules tr:last-child td{border-bottom:0}
+.rules td:first-child{font-weight:700}
+.rules .h-ok{color:var(--ok-ink)} .rules .h-mid{color:var(--mid-ink)} .rules .h-bad{color:var(--bad-ink)}
+.meal{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.meal:last-child{border-bottom:0}
+.meal .e{width:40px;height:40px;border-radius:12px;background:var(--surface-2);display:grid;place-items:center;font-size:20px;flex:none}
+.meal b{display:block}
+.meal span{font-size:14px;color:var(--muted)}
+.disclaimer{font-size:12px;color:var(--faint);text-align:center;margin:6px 10px 0}
+
+/* Menú inferior */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs nav{max-width:520px;margin:0 auto;height:var(--tabh);display:flex;justify-content:space-around;align-items:center}
+.tab{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:700;color:var(--faint);padding:6px 10px;min-width:64px}
+.tab[aria-current="page"]{color:var(--brand-strong)}
+.tab[aria-current="page"] svg{stroke:var(--brand)}
+
+/* ===== Diseño hiperrealista (como la imagen de referencia) ===== */
+body{background:radial-gradient(120% 60% at 50% 0%,#1a1f1d 0%,#121514 60%) fixed,#121514}
+.bg-home{position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(100vw,600px);aspect-ratio:937/1535;background:url("bg-home.jpg") top center/cover no-repeat;z-index:-1;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,#000 85%,transparent);mask-image:linear-gradient(180deg,#000 85%,transparent)}
+body:not([data-view="home"]) .bg-home{display:none}
+#v-home .banner{background:none;min-height:0;padding-bottom:6px;margin-bottom:0;justify-content:flex-start;gap:clamp(60px,19vw,100px)}
+#v-home .banner h1{font-size:clamp(30px,8.6vw,38px)}
+#v-home .hero{margin-top:10px!important}
+#v-home .scan{height:clamp(120px,34vw,150px)}
+.card{backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border:1px solid rgba(255,255,255,.08);border-radius:26px}
+.hero{background:rgba(18,24,21,.74);box-shadow:0 24px 50px -20px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05)}
+.scan{background:radial-gradient(ellipse 70% 90% at 50% 50%,rgba(34,224,122,.38),rgba(12,80,45,.55) 55%,rgba(8,38,24,.75) 100%)!important;border:1px solid rgba(34,224,122,.22)!important;border-radius:20px}
+.corner{border-color:var(--brand);border-width:3.5px;filter:drop-shadow(0 0 6px rgba(34,224,122,.6))}
+.shutter{background:radial-gradient(circle at 50% 35%,#3cf08f,#16c766);box-shadow:0 0 0 10px rgba(34,224,122,.14),0 0 0 11px rgba(34,224,122,.35),0 0 34px rgba(34,224,122,.55)}
+.shutter::after{display:none}
+.btn-dark{background:#ececec;color:#0d1210}
+.btn-soft{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#fff}
+.sec h2{font-size:20px;font-weight:800}
+.chip{background:rgba(18,24,21,.7);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:15px;padding:9px 16px 9px 10px}
+.chip span{font-size:20px;line-height:1}
+.pill-brand{font-size:14px;padding:7px 14px;border:1.5px solid var(--brand);color:var(--brand);background:rgba(10,14,12,.55)}
+.avatar{width:46px;height:46px;background:rgba(10,14,12,.75)!important;color:#fff!important;border:1px solid rgba(255,255,255,.12)}
+.tabs{background:rgba(14,17,16,.94);border-top:1px solid rgba(255,255,255,.08)}
+.tab{font-size:12px;color:#8d9691}
+.tab[aria-current="page"]{color:var(--brand)}
+.tab[aria-current="page"] svg{stroke:var(--brand);filter:drop-shadow(0 0 6px rgba(34,224,122,.5))}
+.textlink{color:var(--brand)}
 </style>
+</head>
+<body>
+<div class="bg-home" aria-hidden="true"></div>
+<div class="app">
 
-<div class="wrap">
-  <header>
-    <h1>Nutri <span>Juankar</span></h1>
-    <p>Haz una foto a un alimento o a su etiqueta y te digo lo saludable que es, según las tablas de tu nutricionista.</p>
-  </header>
+  <!-- ============ INICIO ============ -->
+  <section class="view" id="v-home">
+    <div class="banner">
+      <div class="top"><span class="pill-brand">● Nutri Juankar</span><div class="avatar" aria-hidden="true">J</div></div>
+      <div><div class="hello" id="hello">Hola 👋</div><h1>¿Qué vas a comer?</h1>
+      <p class="lead">Escanea la etiqueta o el plato y te digo si encaja con tu plan.</p></div>
+    </div>
 
-  <section class="panel" aria-labelledby="t-foto">
-    <h4 id="t-foto">1 · La foto</h4>
-    <div class="drop" id="drop">
-      <div class="hint" id="hint">Arrastra aquí una foto, o usa los botones.<br>Mejor si se ve la tabla nutricional y los ingredientes.</div>
-      <img id="preview" alt="Foto del alimento" hidden>
+    <div class="card hero" style="margin-top:-14px">
+      <div class="scan" id="drop">
+        <i class="corner c1"></i><i class="corner c2"></i><i class="corner c3"></i><i class="corner c4"></i>
+        <label class="shutter" id="shutter" aria-label="Hacer foto">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+          <input id="cam" type="file" accept="image/*" capture="environment" style="position:absolute;width:1px;height:1px;opacity:0">
+        </label>
+        <img id="preview" alt="Foto del alimento" hidden>
+        <button class="clear" id="clear" type="button" aria-label="Quitar foto" hidden>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <div class="busy" id="busy" hidden><div class="scanline"></div><div class="spin"></div><div>Leyendo la foto…<br><small style="font-weight:500;opacity:.85">Suele tardar 10–30 segundos</small></div></div>
+      </div>
+      <h2 id="heroTitle">Escanea una etiqueta</h2>
+      <p id="heroText">Haz una foto a la tabla nutricional o al plato. Te doy una nota del 0 al 10 según las tablas de tu nutricionista.</p>
+      <div class="btnrow" id="pickRow">
+        <label class="btn btn-dark">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+          Hacer foto<input id="cam2" type="file" accept="image/*" capture="environment"></label>
+        <label class="btn btn-soft">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>
+          Galería<input id="file" type="file" accept="image/*"></label>
+      </div>
+      <button id="go" class="btn btn-brand" type="button" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5 13.8 11.3 12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+        Analizar foto</button>
+      <div class="status" id="status" role="status"></div>
     </div>
-    <div class="btns">
-      <label class="btn">📷 Hacer foto<input id="cam" type="file" accept="image/*" capture="environment"></label>
-      <label class="btn">🖼️ Subir foto<input id="file" type="file" accept="image/*"></label>
-      <button id="go" class="primary" disabled>Analizar</button>
-    </div>
-    <div class="status" id="status" role="status"></div>
-    <div class="demo"><span class="small">Modo demo, prueba un ejemplo:</span><div class="chips" id="chips"></div></div>
-    <div class="small">¿No tienes foto? <button class="link" id="openManual">Escribe los valores a mano</button></div>
+
+    <div class="sec"><h2>Prueba un ejemplo</h2><button class="textlink" id="openManual" type="button">Escribir a mano</button></div>
+    <div class="chips" id="chips"></div>
+
+    <div class="sec"><h2>Últimos análisis</h2><button class="textlink" type="button" data-go="history">Ver todo</button></div>
+    <div class="card list" id="recent"></div>
+
+    <p class="disclaimer">Ayuda orientativa: no sustituye el consejo de tu nutricionista. Sin etiqueta, los valores son estimaciones.</p>
   </section>
 
-  <section class="panel" id="manualPanel" hidden aria-labelledby="t-man">
-    <h4 id="t-man">Valores por 100 g (de la etiqueta)</h4>
-    <form id="manual" class="grid">
-      <label class="full">Nombre del producto<input id="m-name" type="text" placeholder="p. ej. Yogur griego"></label>
-      <label>Calorías (kcal)<input id="m-kcal" type="number" step="any" inputmode="decimal"></label>
-      <label>Grasas (g)<input id="m-fat" type="number" step="any" inputmode="decimal"></label>
-      <label>de ellas saturadas (g)<input id="m-sat" type="number" step="any" inputmode="decimal"></label>
-      <label>Azúcares (g)<input id="m-sug" type="number" step="any" inputmode="decimal"></label>
-      <label>Sal (g)<input id="m-salt" type="number" step="any" inputmode="decimal"></label>
-      <label>o Sodio (mg)<input id="m-na" type="number" step="any" inputmode="decimal"></label>
-      <label class="full">Ingredientes (opcional, copia la lista)<textarea id="m-ing" placeholder="harina de trigo, azúcar, jarabe de glucosa, E-322..."></textarea></label>
-      <button class="primary full" type="submit">Calcular</button>
+  <!-- ============ ESCRIBIR A MANO ============ -->
+  <section class="view" id="v-manual" hidden>
+    <div class="banner sm" style="--img:var(--img-top)"><div class="bar-head"><button class="iconbtn" type="button" data-back aria-label="Volver"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>Escribir valores</b></div></div>
+    <form id="manual" class="card grid lift">
+      <p class="small full">Copia los valores <b>por 100 g</b> de la etiqueta. Deja en blanco lo que no aparezca.</p>
+      <label class="field full">Nombre del producto<input id="m-name" type="text" placeholder="p. ej. Yogur griego"></label>
+      <label class="field">Calorías (kcal)<input id="m-kcal" type="number" step="any" inputmode="decimal"></label>
+      <label class="field">Grasas (g)<input id="m-fat" type="number" step="any" inputmode="decimal"></label>
+      <label class="field">Saturadas (g)<input id="m-sat" type="number" step="any" inputmode="decimal"></label>
+      <label class="field">Azúcares (g)<input id="m-sug" type="number" step="any" inputmode="decimal"></label>
+      <label class="field">Sal (g)<input id="m-salt" type="number" step="any" inputmode="decimal"></label>
+      <label class="field">o Sodio (mg)<input id="m-na" type="number" step="any" inputmode="decimal"></label>
+      <label class="field full">Ingredientes (opcional)<textarea id="m-ing" placeholder="harina de trigo, azúcar, jarabe de glucosa, E-322..."></textarea></label>
+      <button class="btn btn-dark full" type="submit">Calcular nota</button>
     </form>
   </section>
 
-  <section class="panel result" id="result" aria-live="polite"></section>
+  <!-- ============ RESULTADO ============ -->
+  <section class="view" id="v-result" hidden aria-live="polite">
+    <div class="banner sm" style="--img:var(--img-top)"><div class="bar-head"><button class="iconbtn" type="button" data-back aria-label="Volver"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>Resultado</b></div></div>
+    <div id="result" class="view lift" style="animation:none"></div>
+  </section>
 
-  <details class="panel">
-    <summary>Las reglas que uso (tablas de la nutricionista)</summary>
-    <div class="legend">
-      <div class="h">por 100 g</div><div class="h">Bajo 🟢</div><div class="h">Moderado 🟡</div><div class="h">Alto 🔴</div>
-      <div>Calorías</div><div>&lt; 100 kcal</div><div>100–200</div><div>&gt; 200 kcal</div>
-      <div>Grasas</div><div>&lt; 5 g</div><div>5–20 g</div><div>&gt; 20 g</div>
-      <div>Saturadas *</div><div>&lt; 1,5 g</div><div>1,5–5 g</div><div>&gt; 5 g</div>
-      <div>Azúcares</div><div>&lt; 2 g</div><div>2–10 g</div><div>&gt; 10 g</div>
-      <div>Sal</div><div>&lt; 0,25 g</div><div>0,25–1 g</div><div>&gt; 1 g</div>
+  <!-- ============ HISTORIAL ============ -->
+  <section class="view" id="v-history" hidden>
+    <div class="top"><h1>Historial</h1><button class="textlink" id="clearHist" type="button">Borrar</button></div>
+    <p class="small">Se guarda solo en este móvil. Las fotos no se guardan.</p>
+    <div class="card list" id="histAll"></div>
+  </section>
+
+  <!-- ============ MI PLAN ============ -->
+  <section class="view" id="v-plan" hidden>
+    <div class="banner sm" style="--img:var(--img-top);justify-content:flex-end;min-height:260px"><div><span class="pill-brand">Tu nutricionista</span><h1 style="margin-top:10px">Mi plan</h1><p class="lead">Las reglas con las que puntúo y cómo es tu semana.</p></div></div>
+    <div class="card">
+      <h2 style="font-size:17px;margin:0 0 4px">Cómo puntúo</h2>
+      <p class="small" style="margin-bottom:8px">Tablas del "detective de etiquetas" de tu nutricionista, por 100 g.</p>
+      <table class="rules">
+        <thead><tr><th></th><th class="h-ok">Bajo</th><th class="h-mid">Moderado</th><th class="h-bad">Alto</th></tr></thead>
+        <tbody>
+          <tr><td>Calorías</td><td>&lt; 100</td><td>100–200</td><td>&gt; 200 kcal</td></tr>
+          <tr><td>Grasas</td><td>&lt; 5</td><td>5–20</td><td>&gt; 20 g</td></tr>
+          <tr><td>Saturadas*</td><td>&lt; 1,5</td><td>1,5–5</td><td>&gt; 5 g</td></tr>
+          <tr><td>Azúcares</td><td>&lt; 2</td><td>2–10</td><td>&gt; 10 g</td></tr>
+          <tr><td>Sal</td><td>&lt; 0,25</td><td>0,25–1</td><td>&gt; 1 g</td></tr>
+        </tbody>
+      </table>
+      <p class="small" style="margin-top:10px">Sal = sodio × 2,5. Cuantos menos ingredientes, más natural. Muchos "E" son muchos aditivos. Ojo con los azúcares ocultos acabados en "-osa" (glucosa, fructosa, dextrosa…), miel y siropes.</p>
+      <p class="small" style="margin-top:6px">* La hoja no da cifras para las saturadas; uso las del semáforo europeo.</p>
     </div>
-    <p class="small">Sodio a sal: sal = sodio × 2,5 (500 mg de sodio ≈ 1,25 g de sal; el PDF usa 500 mg como límite alto y 100 mg como bajo). Ingredientes: cuantos menos, más natural; muchos "E" significan muchos aditivos; ojo con los azúcares ocultos que acaban en "-osa" (glucosa, fructosa, dextrosa...), miel y siropes.</p>
-    <p class="small">* La hoja de la nutricionista pide limitar las saturadas pero no da cifras. Uso las de la etiqueta semáforo europea (supuesto mío, pregúntale si está de acuerdo).</p>
-    <p class="small">Plan de la semana: desayuno 30–60 min tras levantarte; cena 2–3 h antes de dormir, sin pan ni arroz la mayoría de días; agua, evitar zumos, refrescos y alcohol.</p>
-  </details>
+    <div class="card">
+      <h2 style="font-size:17px;margin:0 0 4px">Tu semana</h2>
+      <div class="meal"><div class="e">☀️</div><div><b>Desayuno</b><span>30–60 min después de levantarte, con café o té sin azúcar.</span></div></div>
+      <div class="meal"><div class="e">🌙</div><div><b>Cena</b><span>2–3 h antes de dormir. Sin pan ni arroz la mayoría de días.</span></div></div>
+      <div class="meal"><div class="e">💧</div><div><b>Bebida</b><span>Agua. Evitar zumos, refrescos y alcohol.</span></div></div>
+    </div>
+  </section>
 
-  <details class="panel" id="settings">
-    <summary>⚙️ Ajustes: tu código de acceso</summary>
-    <div class="grid">
-      <label class="full">Código de acceso<input id="apiKey" type="text" autocomplete="off" autocapitalize="characters" placeholder="p. ej. JUANKAR-XXXXXX"></label>
-      <button id="saveKey" type="button">Guardar código</button>
-      <button id="delKey" type="button">Borrar código</button>
+  <!-- ============ AJUSTES ============ -->
+  <section class="view" id="v-settings" hidden>
+    <div class="top"><h1>Ajustes</h1></div>
+    <div class="card grid" id="settings">
+      <div class="full"><h2 style="font-size:17px;margin:0">Código de acceso</h2><p class="small">Te lo da Juankar o tu nutricionista. Con él la app usa el servidor de Nutri Juankar: no necesitas ninguna clave ni cuenta.</p></div>
+      <label class="field full">Código<input id="apiKey" type="text" autocomplete="off" autocapitalize="characters" placeholder="p. ej. JUANKAR-XXXXXX"></label>
+      <button id="saveKey" class="btn btn-dark" type="button">Guardar</button>
+      <button id="delKey" class="btn btn-soft" type="button">Borrar</button>
       <div id="keyState" class="small full"></div>
     </div>
-    <p class="small">Te lo da Juankar o tu nutricionista. Con él, la app usa el servidor de Nutri Juankar: no necesitas ninguna clave ni cuenta.</p>
-  </details>
-
-  <p class="small">Es una ayuda orientativa, no sustituye el consejo de tu nutricionista. Los valores sacados de una foto de comida sin etiqueta son estimaciones.</p>
+    <p class="disclaimer">Nutri Juankar · ayuda orientativa, no sustituye el consejo de tu nutricionista.</p>
+  </section>
 </div>
+
+<div class="tabs"><nav aria-label="Menú">
+  <button class="tab" type="button" data-go="home" aria-current="page"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Inicio</button>
+  <button class="tab" type="button" data-go="history"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Historial</button>
+  <button class="tab" type="button" data-go="plan"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21c0-9 5-15 15-16-1 10-7 15-15 16z"/><path d="M5 21l7-7"/></svg>Mi plan</button>
+  <button class="tab" type="button" data-go="settings"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Ajustes</button>
+</nav></div>
 
 <script>
 (() => {
 const $ = id => document.getElementById(id);
 let imageBlob = null;
+
+// ---------- Navegación entre pantallas ----------
+const VIEWS = ["home","manual","result","history","plan","settings"];
+let current = "home", prev = "home";
+function show(name, {push = true} = {}){
+  if (name !== current) prev = current;
+  VIEWS.forEach(v => $("v-" + v).hidden = v !== name);
+  const tab = ["manual","result"].includes(name) ? null : name;
+  document.querySelectorAll(".tab").forEach(t => t.dataset.go === tab ? t.setAttribute("aria-current","page") : t.removeAttribute("aria-current"));
+  current = name; document.body.dataset.view = name;
+  if (name === "history") renderHistory();
+  if (push) history.pushState({v:name}, "");
+  window.scrollTo({top:0});
+}
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]"); if (g) { show(g.dataset.go); return; }
+  if (e.target.closest("[data-back]")) history.back();
+});
+history.replaceState({v:"home"}, ""); document.body.dataset.view = "home";
+addEventListener("popstate", e => show(e.state?.v || "home", {push:false}));
+
+// Saludo según la hora
+const h = new Date().getHours();
+$("hello").textContent = (h < 6 ? "Buenas noches" : h < 13 ? "Buenos días" : h < 21 ? "Buenas tardes" : "Buenas noches") + ", Juankar 👋";
 
 // ---------- Reglas CDIET (por 100 g) ----------
 const RULES = {
@@ -164,7 +391,7 @@ const RULES = {
   sugar:{name:"Azúcares", unit:"g", low:2, high:10},
   salt:{name:"Sal", unit:"g", low:0.25, high:1},
 };
-const LEVEL = {ok:{t:"Bajo",c:"p-ok",pts:2}, mid:{t:"Moderado",c:"p-mid",pts:1}, bad:{t:"Alto",c:"p-bad",pts:0}};
+const LEVEL = {ok:{t:"Bajo",pts:2}, mid:{t:"Moderado",pts:1}, bad:{t:"Alto",pts:0}};
 function level(key, v){
   if (v == null || isNaN(v)) return null;
   const r = RULES[key];
@@ -172,6 +399,7 @@ function level(key, v){
 }
 const num = v => (v === "" || v == null || isNaN(+v)) ? null : +v;
 const fmt = (v,u) => v == null ? "—" : (Math.round(v*100)/100).toLocaleString("es-ES") + " " + u;
+const fmtScore = s => s == null ? "?" : (+s).toLocaleString("es-ES", {minimumFractionDigits:1, maximumFractionDigits:1});
 
 const NOT_SUGAR = /celulosa|grasa/i;
 function analyseIngredients(list){
@@ -205,10 +433,10 @@ function score(d){
   return {v, levels, score:Math.round(s*10)/10, ing};
 }
 function verdictOf(s){
-  if (s == null) return {cls:"v-mid", t:"Sin datos suficientes"};
-  if (s >= 7) return {cls:"v-ok", t:"Saludable"};
-  if (s >= 4) return {cls:"v-mid", t:"Con moderación"};
-  return {cls:"v-bad", t:"Poco saludable"};
+  if (s == null) return {c:"na", t:"Sin datos suficientes"};
+  if (s >= 7) return {c:"ok", t:"Saludable"};
+  if (s >= 4) return {c:"mid", t:"Con moderación"};
+  return {c:"bad", t:"Poco saludable"};
 }
 
 // ---------- Pintar resultado ----------
@@ -220,15 +448,35 @@ function fromServer(sv){
     levels:{kcal:NIVEL[L.kcal]||null, fat:NIVEL[L.grasa]||null, sat:NIVEL[L.saturadas]||null, sugar:NIVEL[L.azucar]||null, salt:NIVEL[L.sal]||null},
     score:sv.nota, ing:{count:sv.ingredientes?.total||0, eNums:sv.ingredientes?.aditivos_e||[], sugars:sv.ingredientes?.azucares_ocultos||[]}};
 }
+const PLAN_LABEL = {desayuno:"Mejor en el desayuno", cena:"Bien para la cena", ambos:"Vale para desayuno o cena", ocasional:"Solo de vez en cuando", evitar:"Mejor evitarlo"};
+const PLAN_ICON = {desayuno:"☀️", cena:"🌙", ambos:"🍽️", ocasional:"⏳", evitar:"🚫"};
+const RING_COLOR = {ok:"var(--ok)", mid:"var(--mid)", bad:"var(--bad)", na:"var(--line)"};
+const NOTE_ICON = {ok:"✓", mid:"!", bad:"✕"};
+
+function emojiFor(name){
+  const n = (name || "").toLowerCase();
+  const map = [[/salm|pescad|merluz|atún|atun|bacalao|sardin/,"🐟"],[/yogur|leche|queso|requesón|cottage|kéfir|kefir/,"🥛"],[/huevo|tortilla/,"🥚"],
+    [/pollo|pavo|carne|ternera|cerdo|jamón|jamon|chorizo|embutido|salchich/,"🍗"],[/ketchup|tomate|salsa/,"🍅"],[/pan|tostada|galleta|cereal|avena|tortita|bollo|magdalena/,"🍞"],
+    [/chocolate|cacao|dulce|caramel|golosina|azúcar|azucar|mermelada|miel/,"🍫"],[/manzana|plátano|platano|fruta|kiwi|naranja|fresa|frutos rojos|pera|uva/,"🍎"],
+    [/ensalada|lechuga|verdura|brócoli|brocoli|calabac|espinaca|pepino/,"🥗"],[/nuez|nueces|almendra|frutos secos|cacahuete|pistacho/,"🥜"],
+    [/zumo|refresco|bebida|cola|agua/,"🥤"],[/arroz|pasta|macarr|espagueti/,"🍝"],[/patata|batata|frita|snack/,"🥔"],[/aceite|oliva/,"🫒"]];
+  for (const [re, e] of map) if (re.test(n)) return e;
+  return "🍽️";
+}
+
 function render(d, opts = {}){
   const r = d.server ? fromServer(d.server) : score(d), vd = verdictOf(r.score), el = $("result");
+  const C = 2 * Math.PI * 42, frac = r.score == null ? 0 : Math.max(0.02, r.score / 10);
   const rows = Object.keys(RULES).map(k => {
-    const lv = r.levels[k], R = RULES[k];
+    const lv = r.levels[k], R = RULES[k], val = r.v[k];
     let sub = R.guess ? "límite orientativo" : "";
     if (k === "salt" && d.salt == null && d.sodium_mg != null) sub = `calculada de ${fmt(+d.sodium_mg,"mg")} de sodio`;
-    return `<div class="row"><div class="n">${R.name}${sub ? `<small>${sub}</small>` : ""}</div>
-      <div class="val">${fmt(r.v[k], R.unit)}</div>
-      <div class="pill ${lv ? LEVEL[lv].c : "p-na"}">${lv ? LEVEL[lv].t : "Sin dato"}</div></div>`;
+    const w = val == null ? 0 : Math.max(3, Math.min(100, val / (R.high * 1.25) * 100));
+    const c = lv || "na";
+    return `<div class="n"><div class="nl"><div class="name"><i class="dot d-${c}"></i>${R.name}</div>
+      <div class="v">${fmt(val, R.unit)}<small class="t-${c}">${lv ? LEVEL[lv].t : "Sin dato"}</small></div></div>
+      ${sub ? `<div class="sub">${sub}</div>` : ""}
+      <div class="track2"><i data-w="${w}" style="width:0;background:var(--${lv || "line"})"></i></div></div>`;
   }).join("");
 
   const notes = [];
@@ -244,28 +492,68 @@ function render(d, opts = {}){
   if (d.estimated) notes.push(["mid", "Valores estimados", "No se veía una etiqueta, así que son valores típicos para este alimento."]);
   (d.warnings || []).forEach(w => notes.push(["mid", "Ojo", w]));
 
-  const plan = d.plan ? `<div class="plan"><h4>Con tu plan de la semana</h4>
-      <div class="when">${esc(PLAN_LABEL[d.plan.when] || d.plan.when || "")}</div>
-      <div>${esc(d.plan.why || "")}</div></div>` : "";
+  const plan = d.plan ? `<div class="plan"><div class="pi">${PLAN_ICON[d.plan.when] || "🥗"}</div><div>
+      <small>Con tu plan</small><b>${esc(PLAN_LABEL[d.plan.when] || d.plan.when || "")}</b><p>${esc(d.plan.why || "")}</p></div></div>` : "";
 
   el.innerHTML = `
-    ${opts.example ? `<div><span class="tag">Ejemplo de la hoja de tu nutricionista</span></div>` : `<h4>2 · El resultado</h4>`}
-    <div class="verdict ${vd.cls}">
-      <div class="dial" aria-label="Nota ${r.score ?? "sin datos"} sobre 10">${r.score ?? "?"}</div>
-      <div><h2>${vd.t}</h2><div class="name">${esc(d.name || "Alimento")}${r.score != null ? " · nota sobre 10" : ""}</div></div>
+    ${opts.example ? `<span class="tagex">Ejemplo</span>` : ""}
+    <div class="card">
+      <div class="prod">
+        <div class="ring" role="img" aria-label="Nota ${r.score ?? "sin datos"} sobre 10">
+          <svg width="100" height="100"><circle class="track" cx="50" cy="50" r="42" stroke-width="10" fill="none"/>
+          <circle class="val" cx="50" cy="50" r="42" stroke="${RING_COLOR[vd.c]}" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" data-off="${C * (1 - frac)}"/></svg>
+          <div class="num">${fmtScore(r.score)}<small>de 10</small></div>
+        </div>
+        <div style="min-width:0"><span class="badge b-${vd.c}">${vd.t}</span><h3>${esc(d.name || "Alimento")}</h3>
+          <div class="meta">${d.estimated ? "Valores estimados" : "Por 100 g"}</div></div>
+      </div>
+      ${d.summary ? `<p class="summary">${esc(d.summary)}</p>` : ""}
     </div>
-    ${d.summary ? `<p style="margin:0">${esc(d.summary)}</p>` : ""}
-    <div class="label"><h3>Semáforo nutricional</h3><div class="per">por 100 g</div>${rows}</div>
-    ${notes.length ? `<ul class="notes">${notes.map(([c,b,t]) => `<li class="${c}"><b>${esc(b)}</b>${esc(t)}</li>`).join("")}</ul>` : ""}
-    ${plan}`;
+    <div class="card nut"><div class="nut-head"><span>Semáforo nutricional</span><span>por 100 g</span></div>${rows}</div>
+    ${plan}
+    ${notes.length ? `<ul class="notes">${notes.map(([c,b,t]) => `<li class="note ${c}"><div class="ic">${NOTE_ICON[c]}</div><div><b>${esc(b)}</b><span>${esc(t)}</span></div></li>`).join("")}</ul>` : ""}`;
+
+  show("result");
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    el.querySelectorAll("[data-off]").forEach(c => c.style.strokeDashoffset = c.dataset.off);
+    el.querySelectorAll("[data-w]").forEach(b => b.style.width = b.dataset.w + "%");
+  }));
+  if (!opts.example && !opts.fromHistory) saveHistory(d, r.score);
 }
-const PLAN_LABEL = {desayuno:"Mejor en el desayuno", cena:"Bien para la cena", ambos:"Vale para desayuno o cena", ocasional:"Solo de vez en cuando", evitar:"Mejor evitarlo"};
 
-// Ejemplo de inicio: "tortitas con chocolate" del PDF CDIET
-render({name:"Tortitas con chocolate", kcal:486, fat:24, sat:14, sugar:24, salt:0.13,
-  summary:"Así se ve un análisis. Este es el ejemplo de tortitas de la hoja: muchas calorías, grasa y azúcar.",
-  plan:{when:"ocasional", why:"No aparece en tu plan. Si las tomas, que sea poco y en el desayuno, nunca en la cena."}}, {example:true});
-
+// ---------- Historial (solo en este móvil) ----------
+const store = {
+  get(k){ try { return localStorage.getItem(k) || ""; } catch { return ""; } },
+  set(k,v){ try { v ? localStorage.setItem(k,v) : localStorage.removeItem(k); } catch {} },
+};
+function loadHistory(){ try { return JSON.parse(store.get("nj_historial") || "[]"); } catch { return []; } }
+function saveHistory(d, s){
+  const list = loadHistory();
+  list.unshift({t:Date.now(), name:d.name || "Alimento", score:s, when:d.plan?.when || null, d});
+  store.set("nj_historial", JSON.stringify(list.slice(0, 40)));
+  renderRecent();
+}
+function ago(t){
+  const m = Math.round((Date.now() - t) / 60000);
+  if (m < 1) return "ahora"; if (m < 60) return `hace ${m} min`;
+  const h = Math.round(m / 60); if (h < 24) return `hace ${h} h`;
+  return new Date(t).toLocaleDateString("es-ES", {day:"numeric", month:"short"});
+}
+function itemHTML(x, i){
+  const c = verdictOf(x.score).c;
+  return `<button class="item" type="button" data-hist="${i}"><div class="thumb">${emojiFor(x.name)}</div>
+    <div class="t"><b>${esc(x.name)}</b><small>${esc(PLAN_LABEL[x.when] || verdictOf(x.score).t)} · ${ago(x.t)}</small></div>
+    <div class="sc ${c}">${fmtScore(x.score)}</div></button>`;
+}
+const EMPTY = `<div class="empty"><b>Aún no has analizado nada</b>Haz una foto o prueba un ejemplo de arriba.</div>`;
+function renderRecent(){ const l = loadHistory(); $("recent").innerHTML = l.length ? l.slice(0,3).map(itemHTML).join("") : EMPTY; }
+function renderHistory(){ const l = loadHistory(); $("histAll").innerHTML = l.length ? l.map(itemHTML).join("") : EMPTY.replace(" de arriba", " en Inicio"); }
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-hist]"); if (!b) return;
+  const x = loadHistory()[+b.dataset.hist]; if (x) render(x.d, {fromHistory:true});
+});
+$("clearHist").onclick = () => { if (confirm("¿Borrar todo el historial de este móvil?")) { store.set("nj_historial", ""); renderHistory(); renderRecent(); } };
+renderRecent();
 
 // ---------- Modo demo: ejemplos reales de la hoja CDIET y de una foto ----------
 const EXAMPLES = [
@@ -288,12 +576,10 @@ const EXAMPLES = [
    summary:"Pescado azul: grasa buena (omega 3) y sin azúcar.",
    plan:{when:"cena", why:"Está en tu plan: martes, salmón al horno con brócoli y calabacín."}},
 ];
-EXAMPLES.forEach((x, i) => {
-  const b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = x.name; b.setAttribute("aria-pressed","false");
-  b.onclick = () => {
-    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c === b)));
-    render(x); $("result").scrollIntoView({behavior:"smooth", block:"start"});
-  };
+EXAMPLES.forEach(x => {
+  const b = document.createElement("button"); b.type = "button"; b.className = "chip";
+  b.innerHTML = `<span aria-hidden="true">${emojiFor(x.name)}</span>${esc(x.name)}`;
+  b.onclick = () => render(x, {example:true});
   $("chips").appendChild(b);
 });
 
@@ -310,75 +596,45 @@ async function shrink(file){
     return await new Promise(ok => c.toBlob(b => ok(b || file), "image/jpeg", 0.85));
   } catch { return file; } finally { URL.revokeObjectURL(url); }
 }
-async function takeFile(file){
-  if (!file || !file.type.startsWith("image/")) { setStatus("Ese archivo no es una imagen.", true); return; }
-  imageBlob = await shrink(file);
-  const p = $("preview"); p.src = URL.createObjectURL(imageBlob); p.hidden = false; $("hint").hidden = true;
-  $("go").disabled = false; setStatus("Foto lista. Pulsa Analizar.");
+function setPhoto(on){
+  $("preview").hidden = !on; $("clear").hidden = !on; $("shutter").hidden = on;
+  document.querySelectorAll(".corner").forEach(c => c.hidden = on);
+  $("go").hidden = !on; $("pickRow").hidden = on;
+  $("heroTitle").textContent = on ? "Foto lista" : "Escanea una etiqueta";
+  $("heroText").textContent = on ? "Pulsa Analizar. Si no se lee bien, quita la foto y haz otra más cerca y con luz." : "Haz una foto a la tabla nutricional o al plato. Te doy una nota del 0 al 10 según las tablas de tu nutricionista.";
 }
-$("cam").onchange = e => takeFile(e.target.files[0]);
-$("file").onchange = e => takeFile(e.target.files[0]);
+async function takeFile(file){
+  if (!file) return;
+  if (!file.type.startsWith("image/")) { setStatus("Ese archivo no es una imagen.", true); return; }
+  imageBlob = await shrink(file);
+  $("preview").src = URL.createObjectURL(imageBlob);
+  setPhoto(true); setStatus("");
+}
+["cam","cam2","file"].forEach(id => $(id).onchange = e => { takeFile(e.target.files[0]); e.target.value = ""; });
+$("clear").onclick = () => { imageBlob = null; setPhoto(false); setStatus(""); };
 const drop = $("drop");
 drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
 drop.addEventListener("dragleave", () => drop.classList.remove("over"));
 drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("over"); takeFile(e.dataTransfer.files[0]); });
-document.addEventListener("paste", e => { const f = [...(e.clipboardData?.files || [])][0]; if (f) takeFile(f); });
+document.addEventListener("paste", e => { const f = [...(e.clipboardData?.files || [])][0]; if (f) { show("home"); takeFile(f); } });
 
-$("openManual").onclick = () => { $("manualPanel").hidden = false; $("m-name").focus(); };
+$("openManual").onclick = () => { show("manual"); setTimeout(() => $("m-name").focus(), 50); };
 $("manual").addEventListener("submit", e => {
   e.preventDefault();
   const ing = $("m-ing").value.split(/,|;|\n/).map(s => s.trim()).filter(Boolean);
   render({name:$("m-name").value || "Producto", kcal:num($("m-kcal").value), fat:num($("m-fat").value), sat:num($("m-sat").value),
     sugar:num($("m-sug").value), salt:num($("m-salt").value), sodium_mg:num($("m-na").value), ingredients:ing});
-  $("result").scrollIntoView({behavior:"smooth", block:"start"});
 });
-
-// ---------- Pregunta a Claude ----------
-const PROMPT = `Eres el asistente de una app de nutrición en español. Mira la foto: puede ser la etiqueta nutricional / lista de ingredientes de un producto, o un alimento o plato sin etiqueta.
-
-Devuelve SOLO un objeto JSON con esta forma (usa null si un dato no se puede saber):
-{
- "name": "nombre corto del alimento o producto",
- "kind": "etiqueta" | "alimento",
- "estimated": true si los valores NO salen de una etiqueta visible sino de valores típicos,
- "fresh": true si es un alimento fresco o poco procesado (fruta, verdura, huevo, carne o pescado sin procesar, frutos secos naturales, legumbre, yogur natural sin azúcar),
- "kcal": kcal por 100 g, "fat": grasas g/100 g, "sat": saturadas g/100 g, "sugar": azúcares g/100 g,
- "salt": sal g/100 g (si la etiqueta solo da sodio, deja null y rellena sodium_mg), "sodium_mg": sodio mg/100 g,
- "ingredients": ["lista", "de ingredientes", "tal cual en la etiqueta, incluidos números E"] o [] si no se ven,
- "carb_group": "cereales" | "azucares" | "tuberculos" | "legumbres" | "frutas_verduras" | "ninguno",
- "plan": {"when": "desayuno" | "cena" | "ambos" | "ocasional" | "evitar", "why": "una o dos frases explicando por qué, según el plan"},
- "summary": "una o dos frases claras y amables sobre lo saludable que es",
- "warnings": ["avisos breves, p. ej. grasas trans o hidrogenadas, edulcorantes, foto borrosa"]
-}
-
-Reglas:
-- Si la etiqueta solo da valores por porción, conviértelos a 100 g.
-- Si una etiqueta da kJ y kcal, usa kcal.
-- Si es un plato sin etiqueta, estima valores típicos por 100 g y pon estimated: true.
-- Si la foto no muestra comida, pon name: "No reconocido" y todo lo demás null.
-
-Plan de alimentación de la persona (de su nutricionista):
-- Desayuno 30–60 min tras levantarse, con café o té sin azúcar. Ejemplos: huevos revueltos con espinacas, aguacate y tomate; yogur griego natural con chía, nueces y frutos rojos; tortilla con champiñones y queso; requesón o cottage sobre pan integral con aguacate; huevos cocidos con kiwi y almendras; tostada integral con aguacate y huevo poché; yogur griego con avena, manzana y canela.
-- Cena al menos 2–3 h antes de dormir, SIN pan ni arroz la mayoría de días. Ejemplos: pechuga de pollo a la plancha con ensalada; salmón o merluza al horno con brócoli y calabacín; ensalada de atún al natural; tortilla de verduras con ensalada; pavo a la plancha con judías verdes; crema de calabaza con huevo cocido; queso cottage o yogur griego salado con tomate, pepino y frutos secos.
-- Bebidas: agua durante el día. Evitar zumos, refrescos y alcohol.
-- Fuentes de hidratos (cereales, pan, arroz, pasta, patata, batata, legumbres, azúcares): mejor en el desayuno, no en la cena.
-- Azúcares (azúcar, miel, mermelada, golosinas): ocasional o evitar.`;
 
 // ---------- API Nutri Juankar ----------
 const API = "https://anncshionedpjcmjqxiq.supabase.co/functions/v1/analizar";
-const store = {
-  get(k){ try { return localStorage.getItem(k) || ""; } catch { return ""; } },
-  set(k,v){ try { v ? localStorage.setItem(k,v) : localStorage.removeItem(k); } catch {} },
-};
 function refreshKeyUI(){
   const has = !!store.get("nj_codigo");
-  $("keyState").textContent = has ? "Código guardado: " + store.get("nj_codigo") : "Falta tu código de acceso";
-  $("keyState").className = "small " + (has ? "" : "err");
-  $("settings").open = !has;
+  $("keyState").innerHTML = has ? `<span class="ok-text">✓ Código guardado: ${esc(store.get("nj_codigo"))}</span>` : `<span class="err-text">Falta tu código de acceso</span>`;
 }
 $("saveKey").onclick = () => {
   const k = $("apiKey").value.trim().toUpperCase();
-  if (k.length < 6) { $("keyState").textContent = "Escribe el código completo."; $("keyState").className = "small err"; return; }
+  if (k.length < 6) { $("keyState").innerHTML = `<span class="err-text">Escribe el código completo.</span>`; return; }
   store.set("nj_codigo", k); $("apiKey").value = ""; refreshKeyUI();
 };
 $("delKey").onclick = () => { store.set("nj_codigo", ""); refreshKeyUI(); };
@@ -400,18 +656,20 @@ async function askApi(blob){
 
 $("go").onclick = async () => {
   if (!imageBlob) return;
-  if (!store.get("nj_codigo")) { setStatus("Primero guarda tu código de acceso en Ajustes (abajo del todo).", true); $("settings").open = true; $("settings").scrollIntoView({behavior:"smooth"}); return; }
-  const go = $("go"); go.disabled = true; setStatus("Leyendo la foto… puede tardar unos 10–30 segundos.");
+  if (!store.get("nj_codigo")) { setStatus("Primero guarda tu código de acceso en Ajustes.", true); show("settings"); $("apiKey").focus(); return; }
+  const go = $("go"); go.disabled = true; $("busy").hidden = false; setStatus("");
   try{
     const sv = await askApi(imageBlob);
     render({name: sv.nombre, estimated: sv.estimado, fresh: sv.fresco, summary: sv.resumen, warnings: sv.avisos,
       salt: sv.por_100g?.sal, plan: sv.plan ? {when: sv.plan.momento, why: sv.plan.motivo} : null, server: sv});
-    setStatus("Hecho. Coste de esta foto: " + ((sv.coste_usd||0)*100).toLocaleString("es-ES", {maximumFractionDigits:2}) + " céntimos de dólar.");
-    $("result").scrollIntoView({behavior:"smooth", block:"start"});
+    imageBlob = null; setPhoto(false);
+    setStatus("Último análisis: " + ((sv.coste_usd||0)*100).toLocaleString("es-ES", {maximumFractionDigits:2}) + " céntimos de dólar.");
   } catch(e){
     setStatus((e?.message || "No se pudo analizar la foto.") + " (código: " + (e?.code || "desconocido") + ")", true);
-  } finally { go.disabled = false; }
+  } finally { go.disabled = false; $("busy").hidden = true; }
 };
 })();
 </script>
-<script>if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});</script></body></html>
+<script>if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});</script>
+</body>
+</html>
